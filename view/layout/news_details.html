@@ -1,0 +1,75 @@
+<!-- nav danh mục trang -->
+<nav data-mdb-navbar-init class="navbar navbar-expand-lg bg-body-tertiary mb-4">
+  <div class="container-fluid d-flex align-content-center">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb align-items-center mb-0">
+        <li class="breadcrumb-item"><a href="#"><i class=" fs-5 bi-house-door-fill"></i>Trang chủ</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a class="fs-6" href="#">Bắt kịp xu hướng</a>
+        <li class="breadcrumb-item active" aria-current="page"><a class="fs-6 text-primary" href="#">
+            {{idNews.titles}}</a>
+        </li>
+      </ol>
+    </nav>
+  </div>
+</nav>
+<!-- main -->
+<div class="blog main row">
+  <div class="col-md-3 order-sm-2 order-md-1 col-sm-12">
+    <div class="blog-row1 row mb-4">
+      <h1 class="text-uppercase fs-5 fw-bold">Danh mục tin tức</h1>
+      <div class="blog-catelgory row">
+        <span class="hvpr mt-3 fs-6 hvpr"><a class="hvpr" href="">Bắt kịp xu hướng</a></span>
+        <span class="hvpr mt-3 fs-6 hvpr"><a class="hvpr" href="">Xây dựng phong cách</a></span>
+      </div>
+    </div>
+    <!-- <div class="blog-row2 row">
+      <h1 class="text-uppercase fs-5 fw-bold">Tin tức nổi bật</h1>
+      <div class="blog-catelgory2">
+        <div class="blog-catelgory-item gap-1 hstack">
+          <a href=""><img class="w-75" src="../../img/category1.png" alt=""></a>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+        </div>
+      </div>
+      <div class="blog-catelgory2">
+        <div class="blog-catelgory-item gap-1 hstack">
+          <a href=""><img class="w-75" src="../../img/category1.png" alt=""></a>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+        </div>
+      </div>
+    </div> -->
+  </div>
+  <div class="col-md-9 order-sm-1 order-md-2 col-sm-12">
+    <h1 class="h4 fw-bold text-uppercase">{{idNews.titles}}</h1>
+    <div class="posts hstack gap-3 fs-6_5 ">
+      <div class="time-post f">
+        <i class="bi bi-clock fs-5 text-primary"></i>
+        {{idNews.date}}
+      </div>
+      <div class="time-post">
+        <i class="bi bi-person-fill fs-5 text-primary"></i>
+        <span>{{idNews.author}}</span>
+      </div>
+    </div>
+    <div class="rte">
+      <div ng-bind-html="renderedHTML"></div>
+      <div class="col-9 py-3">
+        <div class=" pd p-4 rounded-4 bg-lightgray">
+          <a class="text-secondary fw-bold" href="#">Xem thêm</a>
+          <ul class="view-more-list">
+            <li><a class="text-primary" href="#">Phối đồ với quần relax chuẩn men dành cho nam</a></li>
+            <li><a class="text-primary" href="#">Gợi ý 5 kiểu quần kaki nữ trẻ trung được giới trẻ lăng xê</a></li>
+            <li><a class="text-primary" href="#">Sportswear là gì? Chất liệu làm nên những bộ sportswear cao cấp</a>
+            </li>
+            <li><a class="text-primary" href="#">Phong cách thời trang được Gen Z nhiệt tình lăng xê 2023</a></li>
+            <li><a class="text-primary" href="#">5 cách phối đồ với áo varsity giúp bạn trông cực chất</a></li>
+            <li><a class="text-primary" href="#">Năng động cùng 5 cách mix đồ với áo khoác thể thao nam hot</a></li>
+            <li><a class="text-primary" href="#" class="view-more-link">Xem thêm</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <script src="../../js/angular.min.js"></script>
+<script src="../../js/angular-sanitize.min.js"></script> -->

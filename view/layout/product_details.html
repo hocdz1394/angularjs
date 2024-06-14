@@ -1,0 +1,437 @@
+<!-- nav danh mục trang -->
+<nav data-mdb-navbar-init class="navbar navbar-expand-lg bg-body-tertiary mb-4">
+  <div class="container-fluid d-flex align-content-center">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb align-items-center mb-0">
+        <li class="breadcrumb-item"><a href="#"><i class=" fs-5 bi-house-door-fill"></i>Trang chủ</a></li>
+        <!-- <li class="breadcrumb-item"><a class="fs-6" href="#">Áo thun</a></li> -->
+        <li class="breadcrumb-item active" aria-current="page"><a class="fs-6 text-primary" href="#">{{idSp.name}}</a>
+        </li>
+      </ol>
+    </nav>
+  </div>
+</nav>
+<div class="ct main row mb-5">
+  <div class="main-left col-12 col-md-12 col-lg-6">
+    <div class="row">
+      <div
+        class="main-left-left col-md-3 col-xl-2 col-12 order-2 order-md-1 gap-1 d-md-flex flex-wrap d-md-block d-sm-none">
+        <div class=""><a href="">
+            <img ng-if="!isBase64(idSp.thumbnai_img[0])" class="img-thumbnail" src="../../img/{{idSp.thumbnai_img[0]}}"
+              alt="">
+            <img ng-if="isBase64(idSp.thumbnai_img[0])" class="img-thumbnail" src="{{idSp.thumbnai_img[0]}}" alt="">
+          </a></div>
+        <div class=""><a href="">
+            <img ng-if="!isBase64(idSp.thumbnai_img[1])" class="img-thumbnail" src="../../img/{{idSp.thumbnai_img[1]}}"
+              alt="">
+            <img ng-if="isBase64(idSp.thumbnai_img[1])" class="img-thumbnail" src="{{idSp.thumbnai_img[1]}}" alt="">
+          </a></div>
+        <div class=""><a href="">
+            <img ng-if="!isBase64(idSp.thumbnai_img[2])" class="img-thumbnail" src="../../img/{{idSp.thumbnai_img[2]}}"
+              alt="">
+            <img ng-if="isBase64(idSp.thumbnai_img[2])" class="img-thumbnail" src="{{idSp.thumbnai_img[2]}}" alt="">
+          </a></div>
+        <div class=""><a href="">
+            <img ng-if="!isBase64(idSp.thumbnai_img[3])" class="img-thumbnail" src="../../img/{{idSp.thumbnai_img[3]}}"
+              alt="">
+            <img ng-if="isBase64(idSp.thumbnai_img[3])" class="img-thumbnail" src="{{idSp.thumbnai_img[3]}}" alt="">
+          </a></div>
+      </div>
+      <div class="main-left-right col-md-9 col-xl-10 col-12 order-1 order-md-2">
+        <div id="owl-carousel8" class="owl-carousel owl-theme owl-loaded">
+          <div class="owl-stage-outer">
+            <div class="owl-stage">
+              <div class="owl-item">
+                <img ng-if="!isBase64(idSp.thumbnai_img[0])" src="../../img/{{idSp.thumbnai_img[0]}}" alt="">
+                <img ng-if="isBase64(idSp.thumbnai_img[0])" src="{{idSp.thumbnai_img[0]}}" alt="">
+              </div>
+              <div class="owl-item">
+                <img ng-if="!isBase64(idSp.thumbnai_img[1])" src="../../img/{{idSp.thumbnai_img[1]}}" alt="">
+                <img ng-if="isBase64(idSp.thumbnai_img[1])" src="{{idSp.thumbnai_img[1]}}" alt="">
+              </div>
+              <div class="owl-item">
+                <img ng-if="!isBase64(idSp.thumbnai_img[2])" src="../../img/{{idSp.thumbnai_img[2]}}" alt="">
+                <img ng-if="isBase64(idSp.thumbnai_img[2])" src="{{idSp.thumbnai_img[2]}}" alt="">
+              </div>
+              <div class="owl-item">
+                <img ng-if="!isBase64(idSp.thumbnai_img[3])" src="../../img/{{idSp.thumbnai_img[3]}}" alt="">
+                <img ng-if="isBase64(idSp.thumbnai_img[3])" src="{{idSp.thumbnai_img[3]}}" alt="">
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="main-right col-12 col-md-12 col-lg-6">
+    <div class="details-pro">
+      <h1 class="title-product hv fs-3">{{idSp.name}}</h1>
+      <div class="thump-break hstack gap-6 my-3">
+        <div class="brand">Thương hiệu: <span class="text-primary">Sudes</span></div>
+        <div class="status">Tình trạng: <span class="text-primary">Còn hàng</span></div>
+      </div>
+      <div class="price-box hstack gap-4 position-relative mb-3">
+        <strong class="text-primary h3">{{idSp.price|number: 0}},000đ</strong>
+        <label class="text-decoration-line-through">{{idSp.listed_price|number:
+          0}},000đ</label>
+        <div class="save ">
+          <img style="z-index: -1;" class="position-absolute top-0 me-6" src="../../img/union_-3.png" alt="">
+          <span class="zdex text-light ms-2 p-2 fs-6">Tiết kiệm: {{idSp.listed_price-idSp.price}},000₫</span>
+        </div>
+      </div>
+      <div class="ct-voucher-product mb-4">
+        <div class="title text-black fs-5_5 mb-1">Các mã giảm giá có thể áp dụng:</div>
+        <div class="ct-vouchers hstack gap-5">
+          <div class="ct-voucher-thumb">
+            <div class="ct-voucher">HELLO</div>
+            <div class="ct-voucher">FREESHIP</div>
+            <div class="ct-voucher">SUDES50K</div>
+            <div class="ct-voucher">SUDES50</div>
+          </div>
+        </div>
+      </div>
+      <div class="ct-size mb-3">
+        <div class="text-black mb-1">Kích thước: size S</div>
+        <a href="#" class="btn btn-primary text-light">S</a>
+        <a href="#" class="btn btn-default border ">M</a>
+        <a href="#" class="btn btn-default border">L</a>
+        <a href="#" class="btn btn-default border">XL</a>
+      </div>
+      <div class="ct-color mb-3">
+        <div class="text-black mb-1">Màu sắc: Trắng</div>
+        <div class="color-video d-flex align-items-center py-1">
+          <div style="background-color:#ffffff" class="swatches"></div>
+          <div style="background-color:#000000" class="swatches"></div>
+          <div style="background-color:#15841e" class="swatches"></div>
+          <div class="count-color">
+            + 1
+          </div>
+        </div>
+      </div>
+      <div class="soluong">
+        <div class="text-black mb-1">Số lượng</div>
+        <div class="row">
+          <div class="col-md-3 col-sm-3 col-md-offset-3">
+            <div class="input-group">
+              <button ng-click="decreaseQuantity(idSp.id)" type="button" class="btn btn-danger btn-number"
+                data-type="minus" data-field="quant[1]">
+                <span class="glyphicon glyphicon-minus">-</span>
+              </button>
+              <input class="form-control input-number" value="1" ng-model="cart[idQdetail(idSp.id)].quantity"
+                type="text">
+              <button ng-click="increaseQuantity(idSp.id)" type="button" class="btn btn-success btn-number"
+                data-type="plus" data-field="quant[1]">
+                <span class="glyphicon glyphicon-plus">+</span>
+              </button>
+            </div>
+          </div>
+          <a class="col-md-9 btn mb-3 col-sm-9 text-bg-light border hvbgpr" href=""
+            ng-click="addToCart(idSp); showToasts()"><i class="fs-6 bi bi-basket"></i>
+            Thêm vào
+            giỏ hàng</a>
+        </div>
+        <a href="#!cart" ng-hide="{{id}}" ng-click="addToCart(sp)"
+          class="col-12 fw-bold btn btn-primary hvbg text-light p-2">MUA NGAY</a>
+        <div class="chinhsach-pro row my-4">
+          <div class="col-md-4 hstack gap-2 p-3 justify-content-sm-center">
+            <img src="../../img/chinhsach_1.jpg" alt="">
+            <span class="fs-6_5">Đổi trả cực dễ chỉ cần số điện thoại</span>
+          </div>
+          <div class="col-md-4 hstack gap-2 p-3 justify-content-sm-center">
+            <img src="../../img/chinhsach_2.jpg" alt="">
+            <span class="fs-6_5">Đổi trả cực dễ chỉ cần số điện thoại</span>
+          </div>
+          <div class="col-md-4 hstack gap-2 p-3 justify-content-sm-center">
+            <img src="../../img/chinhsach_3.jpg" alt="">
+            <span class="fs-6_5">Đổi trả cực dễ chỉ cần số điện thoại</span>
+          </div>
+          <div class="col-md-4 hstack gap-2 p-3 justify-content-sm-center">
+            <img src="../../img/chinhsach_4.jpg" alt="">
+            <span class="fs-6_5">Đổi trả cực dễ chỉ cần số điện thoại</span>
+          </div>
+          <div class="col-md-4 hstack gap-2 p-3 justify-content-sm-center">
+            <img src="../../img/chinhsach_5.jpg" alt="">
+            <span class="fs-6_5">Đổi trả cực dễ chỉ cần số điện thoại</span>
+          </div>
+          <div class="col-md-4 hstack gap-2 p-3 justify-content-sm-center">
+            <img src="../../img/chinhsach_6.jpg" alt="">
+            <span class="fs-6_5">Đổi trả cực dễ chỉ cần số điện thoại</span>
+          </div>
+        </div>
+        <div class="lienquan">
+          <div class="text-black mb-1 fw-bold mb-2">Bạn có thể phối cùng</div>
+          <div id="owl-carousel9" class="owl-carousel owl-theme owl-loaded">
+            <div class="owl-stage-outer">
+              <div class="owl-stage">
+                <div class="owl-item">
+                  <div class="card">
+                    <div class="img-spfl position-relative card-img-top">
+                      <img src="../../img/newpro1.png" alt="" class="sp">
+                      <div class="img-khung">
+                        <img src="../../img/title_image_1_tag.png" class="mt position-absolute bottom-0 w-50" alt="">
+                        <a class="hv" href=""><i
+                            class="bi bi-qr-code-scan position-absolute top-0 m-4 text-primary zdex hv"></i></a>
+                      </div>
+                      <div class="row">
+                        <div class="action text-center position-absolute top-50">
+                          <a href="#" class="mx-2"><i class="bi bi-sliders ic ic1 hvbgpr"></i></a>
+                          <a href="#" class="mx-2"><i class="bi bi-eye-fill ic ic2 hvbgpr"></i></a>
+                          <a href="#" class="mx-2"><i class="bi bi-cart-fill ic ic3 hvbgpr"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="card-title fw-bold fs-6 hv truncate">Áo Sơ Mi Nam Tay Dài Kẻ Sọc Seesucker
+                        Form
+                      </div>
+                      <div class="card-text row">
+                        <span class="card-text-left col-auto me-auto fs-6_5">Nam</span>
+                        <span class="card-text-right col-auto fs-6_5 ">Size S-Freesize</span>
+                      </div>
+                      <div class="color-video d-flex align-items-center py-1">
+                        <div style="background-color:#ffffff" class="swatches"></div>
+                        <div style="background-color:#000000" class="swatches"></div>
+                        <div style="background-color:#15841e" class="swatches"></div>
+                        <div class="count-color">
+                          + 1
+                        </div>
+                      </div>
+                      <div class="price-box d-flex align-items-center justify-content-between mb-1">
+                        <span class="fs-5_5 fw-bold text-primary">390.000₫ <span
+                            class="fs-7 text-gray fw-light text-decoration-line-through start-0">690.000₫</span></span>
+                        <div class="smart position-relative"><img class="" src="../../img/union.png" alt=""><span
+                            class="fw-bold text-light zdex position-absolute r5 top-0">- 43% </span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="owl-item">
+                  <div class="card">
+                    <div class="img-spfl position-relative card-img-top">
+                      <img src="../../img/newpro2.png" alt="" class="sp">
+                      <div class="img-khung">
+                        <img src="../../img/title_image_1_tag.png" class="mt position-absolute bottom-0 w-50" alt="">
+                        <a class="hv" href=""><i
+                            class="bi bi-qr-code-scan position-absolute top-0 m-4 text-primary zdex hv"></i></a>
+                      </div>
+                      <div class="row">
+                        <div class="action text-center position-absolute top-50">
+                          <a href="#" class="mx-2"><i class="bi bi-sliders ic ic1 hvbgpr"></i></a>
+                          <a href="#" class="mx-2"><i class="bi bi-eye-fill ic ic2 hvbgpr"></i></a>
+                          <a href="#" class="mx-2"><i class="bi bi-cart-fill ic ic3 hvbgpr"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="card-title fw-bold fs-6 hv truncate">Áo Sơ Mi Nam Tay Dài Kẻ Sọc Seesucker
+                        Form
+                      </div>
+                      <div class="card-text row">
+                        <span class="card-text-left col-auto me-auto fs-6_5">Nam</span>
+                        <span class="card-text-right col-auto fs-6_5 ">Size S-Freesize</span>
+                      </div>
+                      <div class="color-video d-flex align-items-center py-1">
+                        <div style="background-color:#ffffff" class="swatches"></div>
+                        <div style="background-color:#000000" class="swatches"></div>
+                        <div style="background-color:#15841e" class="swatches"></div>
+                        <div class="count-color">
+                          + 1
+                        </div>
+                      </div>
+                      <div class="price-box d-flex align-items-center justify-content-between mb-1">
+                        <span class="fs-5_5 fw-bold text-primary">390.000₫ <span
+                            class="fs-7 text-gray fw-light text-decoration-line-through start-0">690.000₫</span></span>
+                        <div class="smart position-relative"><img class="" src="../../img/union.png" alt=""><span
+                            class="fw-bold text-light zdex position-absolute r5 top-0">- 43% </span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="owl-item">
+                  <div class="card">
+                    <div class="img-spfl position-relative card-img-top">
+                      <img src="../../img/newpro3.png" alt="" class="sp">
+                      <div class="img-khung">
+                        <img src="../../img/title_image_1_tag.png" class="mt position-absolute bottom-0 w-50" alt="">
+                        <a class="hv" href=""><i
+                            class="bi bi-qr-code-scan position-absolute top-0 m-4 text-primary zdex hv"></i></a>
+                      </div>
+                      <div class="row">
+                        <div class="action text-center position-absolute top-50">
+                          <a href="#" class="mx-2"><i class="bi bi-sliders ic ic1 hvbgpr"></i></a>
+                          <a href="#" class="mx-2"><i class="bi bi-eye-fill ic ic2 hvbgpr"></i></a>
+                          <a href="#" class="mx-2"><i class="bi bi-cart-fill ic ic3 hvbgpr"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="card-title fw-bold fs-6 hv truncate">Áo Sơ Mi Nam Tay Dài Kẻ Sọc Seesucker
+                        Form
+                      </div>
+                      <div class="card-text row">
+                        <span class="card-text-left col-auto me-auto fs-6_5">Nam</span>
+                        <span class="card-text-right col-auto fs-6_5 ">Size S-Freesize</span>
+                      </div>
+                      <div class="color-video d-flex align-items-center py-1">
+                        <div style="background-color:#ffffff" class="swatches"></div>
+                        <div style="background-color:#000000" class="swatches"></div>
+                        <div style="background-color:#15841e" class="swatches"></div>
+                        <div class="count-color">
+                          + 1
+                        </div>
+                      </div>
+                      <div class="price-box d-flex align-items-center justify-content-between mb-1">
+                        <span class="fs-5_5 fw-bold text-primary">390.000₫ <span
+                            class="fs-7 text-gray fw-light text-decoration-line-through start-0">690.000₫</span></span>
+                        <div class="smart position-relative"><img class="" src="../../img/union.png" alt=""><span
+                            class="fw-bold text-light zdex position-absolute r5 top-0">- 43% </span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="owl-item">
+                  <div class="card">
+                    <div class="img-spfl position-relative card-img-top">
+                      <img src="../../img/newpro4.png" alt="" class="sp">
+                      <div class="img-khung">
+                        <img src="../../img/title_image_1_tag.png" class="mt position-absolute bottom-0 w-50" alt="">
+                        <a class="hv" href=""><i
+                            class="bi bi-qr-code-scan position-absolute top-0 m-4 text-primary zdex hv"></i></a>
+                      </div>
+                      <div class="row">
+                        <div class="action text-center position-absolute top-50">
+                          <a href="#" class="mx-2"><i class="bi bi-sliders ic ic1 hvbgpr"></i></a>
+                          <a href="#" class="mx-2"><i class="bi bi-eye-fill ic ic2 hvbgpr"></i></a>
+                          <a href="#" class="mx-2"><i class="bi bi-cart-fill ic ic3 hvbgpr"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="card-title fw-bold fs-6 hv truncate">Áo Sơ Mi Nam Tay Dài Kẻ Sọc Seesucker
+                        Form
+                      </div>
+                      <div class="card-text row">
+                        <span class="card-text-left col-auto me-auto fs-6_5">Nam</span>
+                        <span class="card-text-right col-auto fs-6_5 ">Size S-Freesize</span>
+                      </div>
+                      <div class="color-video d-flex align-items-center py-1">
+                        <div style="background-color:#ffffff" class="swatches"></div>
+                        <div style="background-color:#000000" class="swatches"></div>
+                        <div style="background-color:#15841e" class="swatches"></div>
+                        <div class="count-color">
+                          + 1
+                        </div>
+                      </div>
+                      <div class="price-box d-flex align-items-center justify-content-between mb-1">
+                        <span class="fs-5_5 fw-bold text-primary">390.000₫ <span
+                            class="fs-7 text-gray fw-light text-decoration-line-through start-0">690.000₫</span></span>
+                        <div class="smart position-relative"><img class="" src="../../img/union.png" alt=""><span
+                            class="fw-bold text-light zdex position-absolute r5 top-0">- 43% </span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="owl-item">
+                  <div class="card">
+                    <div class="img-spfl position-relative card-img-top">
+                      <img src="../../img/newpro5.png" alt="" class="sp">
+                      <div class="img-khung">
+                        <img src="../../img/title_image_1_tag.png" class="mt position-absolute bottom-0 w-50" alt="">
+                        <a class="hv" href=""><i
+                            class="bi bi-qr-code-scan position-absolute top-0 m-4 text-primary zdex hv"></i></a>
+                      </div>
+                      <div class="row">
+                        <div class="action text-center position-absolute top-50">
+                          <a href="#" class="mx-2"><i class="bi bi-sliders ic ic1 hvbgpr"></i></a>
+                          <a href="#" class="mx-2"><i class="bi bi-eye-fill ic ic2 hvbgpr"></i></a>
+                          <a href="#" class="mx-2"><i class="bi bi-cart-fill ic ic3 hvbgpr"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="card-title fw-bold fs-6 hv truncate">Áo Sơ Mi Nam Tay Dài Kẻ Sọc Seesucker
+                        Form
+                      </div>
+                      <div class="card-text row">
+                        <span class="card-text-left col-auto me-auto fs-6_5">Nam</span>
+                        <span class="card-text-right col-auto fs-6_5 ">Size S-Freesize</span>
+                      </div>
+                      <div class="color-video d-flex align-items-center py-1">
+                        <div style="background-color:#ffffff" class="swatches"></div>
+                        <div style="background-color:#000000" class="swatches"></div>
+                        <div style="background-color:#15841e" class="swatches"></div>
+                        <div class="count-color">
+                          + 1
+                        </div>
+                      </div>
+                      <div class="price-box d-flex align-items-center justify-content-between mb-1">
+                        <span class="fs-5_5 fw-bold text-primary">390.000₫ <span
+                            class="fs-7 text-gray fw-light text-decoration-line-through start-0">690.000₫</span></span>
+                        <div class="smart position-relative"><img class="" src="../../img/union.png" alt=""><span
+                            class="fw-bold text-light zdex position-absolute r5 top-0">- 43% </span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- hướng dẫn -->
+<div class="tabhd">
+  <nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
+        role="tab" aria-controls="nav-home" aria-selected="true">Thông tin sản phẩm</button>
+      <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button"
+        role="tab" aria-controls="nav-profile" aria-selected="false">Hướng dẫn mua hàng</button>
+      <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button"
+        role="tab" aria-controls="nav-contact" aria-selected="false">Đánh giá sản phẩm</button>
+    </div>
+  </nav>
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active mb-2" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"
+      tabindex="0">
+      <h2 class="text-uppercase mt-3 h5 fw-bold">Thông Tin Chi Tiết Áo Thun Nam</h2>
+      <div ng-bind-html="renderedHTML" class="">{{idSp.product_detail[0].infor_detail}}</div>
+
+    </div>
+    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+      <div class="rte my-2">
+        <p><strong>Bước 1:</strong>&nbsp;Truy cập website và lựa chọn sản phẩm&nbsp;cần mua</p>
+        <p><strong>Bước 2:</strong>&nbsp;Click và sản phẩm muốn mua, màn hình hiển thị ra pop up với các lựa chọn
+          sau</p>
+        <p>Nếu bạn muốn tiếp tục mua hàng: Bấm vào phần tiếp tục mua hàng để lựa chọn thêm sản phẩm vào giỏ hàng
+        </p>
+        <p>Nếu bạn muốn xem giỏ hàng để cập nhật sản phẩm: Bấm vào xem giỏ hàng</p>
+        <p>Nếu bạn muốn đặt hàng và thanh toán cho sản phẩm này vui lòng bấm vào: Đặt hàng và thanh toán</p>
+        <p><strong>Bước 3:</strong>&nbsp;Lựa chọn thông tin tài khoản thanh toán</p>
+        <p>Nếu bạn đã có tài khoản vui lòng nhập thông tin tên đăng nhập là email và mật khẩu vào mục đã có tài
+          khoản trên hệ thống</p>
+        <p>Nếu bạn chưa có tài khoản và muốn đăng ký tài khoản vui lòng điền các thông tin cá nhân để tiếp tục
+          đăng ký tài khoản. <br>
+          Khi có tài khoản bạn sẽ dễ dàng theo dõi được đơn hàng của mình</p>
+        <p>Nếu bạn muốn mua hàng mà không cần tài khoản vui lòng nhấp chuột vào mục đặt hàng không cần tài khoản
+        </p>
+        <p><strong>Bước 4:</strong>&nbsp;Điền các thông tin của bạn để nhận đơn hàng, lựa chọn hình thức thanh
+          toán và vận chuyển cho đơn hàng của mình</p>
+        <p><strong>Bước 5:</strong>&nbsp;Xem lại thông tin đặt hàng, điền chú thích và gửi đơn hàng</p>
+        <p>Sau khi nhận được đơn hàng bạn gửi chúng tôi sẽ liên hệ bằng cách gọi điện lại để xác nhận lại đơn hàng
+          và địa chỉ của bạn.</p>
+        <p>Trân trọng cảm ơn.</p>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+      <div class="alert alert-info alert-dismissible mt-3 section w-100" role="alert">
+        Bạn tiến hàng mua và cài app <a style="color: red" target="_blank" href="" title="Đánh giá sản phẩm">Đánh
+          giá sản phẩm</a> mới sử dụng được tính năng này!
+      </div>
+    </div>
+  </div>
+</div>
+<script src="../../js/owl.js"></script>

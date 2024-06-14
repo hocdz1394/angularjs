@@ -1,0 +1,235 @@
+<main class="app-content">
+  <div class="app-title">
+    <ul class="app-breadcrumb breadcrumb side mb-0">
+      <li class="breadcrumb-item "><a class="text-primary fw-light" href="#"><b>Quản lý người dùng</b></a></li>
+    </ul>
+    <div id="clock"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="tile">
+        <div class="tile-body">
+          <div class="row element-button">
+            <div class="col-sm-2 me-auto">
+              <a class="btn btn-add btn-sm" href="#!adduser" title="Thêm"><i class="fas fa-plus"></i>
+                Thêm người dùng</a>
+            </div>
+            <div class="col-sm-3">
+              <form class="d-flex" role="search">
+                <input class="form-control me-2 mb-1 h-25" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success btn-sm" type="submit">Search</button>
+              </form>
+            </div>
+          </div>
+          <table class="table table-hover table-bordered" id="sampleTable">
+            <thead>
+              <tr>
+
+                <th width="10" class="">Id</th>
+                <th class="col-3">Tên người dùng</th>
+                <th>Email</th>
+                <th>Số điện thoại</th>
+                <th>Quyền truy cập</th>
+                <th>Chức năng</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="user in arrUser | limitTo:20 | orderBy:'-id'">
+                <td>{{user.id}}</td>
+                <td class="hstack gap-3">
+                  <div style="width: 40px;height: 40px;">
+                    <img class="w-100" ng-if="isBase64(user.img_user)" ng-src="{{ user.img_user }}"
+                      style="border-radius: 50%; border: 1px solid black;" alt="">
+                    <img class="w-100" ng-if="!isBase64(user.img_user)" ng-src="../../img/{{ user.img_user}}"
+                      style="border-radius: 50%;border: 1px solid black;" alt="">
+                  </div>
+                  <div class="w-75 text-start">
+                    {{user.name}}
+                  </div>
+                </td>
+                <td>{{user.email}}</td>
+                <td>{{user.phone}}</td>
+                <td>{{user.role == 0 ? 'Khách hàng' : (user.role == 1 ? 'Admin' : '')}}</td>
+                <td>
+                  <button ng-click="removeOneUser(user.id)" class="btn btn-danger btn-sm trash" type="button"
+                    title="Xóa"><i class="fas fa-trash-alt"></i>
+                  </button>
+                  <button ng-click="editmodelUser(user.id)" class="btn btn-warning btn-sm edit" type="button"
+                    title="Sửa" id="show-emp" data-toggle="modal" data-target="#ModalUP"><i
+                      class="fas fa-edit"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!--
+MODAL
+-->
+<div class="modal fade py-4" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
+  data-keyboard="false">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl " role="document">
+    <div class="modal-content">
+      <div class="col-md-12 scrolling">
+        <h3 class="tile-title mt-2 hstack gap-2 ">Chỉnh sửa thông tin người dùng: <div class="text-primary me-auto">
+            {{editUser.name}}
+          </div><button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </h3>
+        <div class="tile">
+          <form ng-submit="editUsers()" novalidate class="was-validated">
+            <div class="tile-body row">
+              <div class="form-group col-md-3">
+                <label class="control-label">Tên người dùng</label>
+                <input ng-model="editUser.name" class="form-control" type="text" required>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Email</label>
+                <input ng-model="editUser.email" class="form-control" type="text" pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+                  required>
+                <div class="invalid-feedback mb-1 start-0">Vui lòng nhập đúng định dạng email !</div>
+              </div>
+
+              <div class="form-group col-md-3">
+                <label class="control-label">Số điện thoại</label>
+                <input ng-model="editUser.phone" class="form-control" type="text" pattern="(84|0[35789])[0-9]{8}\b"
+                  required>
+                <div class="invalid-feedback mb-1 start-0">Vui lòng bắt đầu từ 0 gồm 10 số !</div>
+              </div>
+
+              <div class="form-group col-md-3">
+                <label class="control-label">Mật khẩu</label>
+                <input ng-model="editUser.password" class="form-control" type="password"
+                  pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required>
+                <div class="invalid-feedback mb-1 start-0">Có chữ hoa, chữ thường, kí tự đặt biệt và ít nhất 8 ký tự !
+                </div>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Tỉnh/Thành phố</label>
+                <input ng-model="editUser.tinh" class="form-control" type="text" required>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Huyện/Quận</label>
+                <input ng-model="editUser.huyen" class="form-control" type="text" required>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Xã/Phường</label>
+                <input ng-model="editUser.xa" class="form-control" type="text" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label class="control-label">Ảnh người dùng</label>
+                <div id="myfileupload mt-2">
+                  <input type="file" onchange="angular.element(this).scope().editFileUser(this)" accept="image/*" />
+
+                </div>
+                <img class="" ng-src="" style="max-width: 200px;"><br>
+                
+              </div>
+              <div class="form-group col-md-4">
+                <label class="control-label">Quyền truy cập</label> <br>
+                <div class="hstack gap-2">
+                  <input type="radio" name="role" ng-model="editUser.role" value="1" id="adminRadio">
+                  <label for="adminRadio">Admin</label>
+                </div>
+                <div class="hstack gap-2">
+                  <input type="radio" name="role" ng-model="editUser.role" value="0" id="customerRadio">
+                  <label for="customerRadio">Khách hàng</label>
+                </div>
+
+              </div>
+              <div class="form-group col-md-12">
+                <label class="control-label">Điền địa chỉ cụ thể</label>
+                <textarea ng-model="editUser.note" class="form-control"></textarea>
+              </div>
+            </div>
+            <button class="btn btn-success" type="submit">Lưu lại</button>
+            <a class="btn btn-danger" href="#!qluser">Hủy bỏ</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+MODAL
+-->
+<div class="modal fade" id="modalProduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-md">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-6 col-sm-12">
+            <div class="modal-pro-img">
+              <img class="w-90 img-thumbnail" ng-if="isBase64(editProduct.thumbnai_img[0])"
+                ng-src="{{editProduct.thumbnai_img[0]}}" alt="">
+              <img class="w-90 img-thumbnail" ng-if="!isBase64(editProduct.thumbnai_img[0])"
+                ng-src="../../img/{{editProduct.thumbnai_img[0]}}" alt="">
+
+
+            </div>
+            <div class="modal-pro-imgmini d-flex gap-4 w-100 mt-2">
+              <img ng-if="isBase64(editProduct.thumbnai_img[1])" ng-src="{{editProduct.thumbnai_img[1]}}" alt=""
+                class="w-25 h-25 img-thumbnail">
+              <img ng-if="!isBase64(editProduct.thumbnai_img[1])" ng-src="../../img/{{editProduct.thumbnai_img[1]}}"
+                alt="" class="w-25 h-25 img-thumbnail">
+
+              <img ng-if="isBase64(editProduct.thumbnai_img[2])" ng-src="{{editProduct.thumbnai_img[2]}}" alt=""
+                class="w-25 h-25 img-thumbnail">
+              <img ng-if="!isBase64(editProduct.thumbnai_img[2])" ng-src="../../img/{{editProduct.thumbnai_img[2]}}"
+                alt="" class="w-25 h-25 img-thumbnail">
+
+              <img ng-if="isBase64(editProduct.thumbnai_img[0])" ng-src="{{editProduct.thumbnai_img[0]}}" alt=""
+                class="w-25 h-25 img-thumbnail">
+              <img ng-if="!isBase64(editProduct.thumbnai_img[0])" ng-src="../../img/{{editProduct.thumbnai_img[0]}}"
+                alt="" class="w-25 h-25 img-thumbnail">
+
+
+            </div>
+          </div>
+          <div class="col-lg-6 col-sm-12">
+            <div class="details-pro">
+              <h1 class="title-product hv fw-bold fs-4">{{editProduct.name}}</h1>
+              <div class="thump-break vstack gap-3 my-2">
+                <div class="brand hstack">
+                  <div class="me-auto">Giá bán</div>
+                  <newan class="text-primary">{{editProduct.price|number:
+                    0}},000đ</newan>
+                </div>
+                <div class="status hstack">
+                  <div class="me-auto">Giá niêm yết</div>
+                  <newan class="text-primary">{{editProduct.listed_price|number:
+                    0}},000đ</newan>
+                </div>
+              </div>
+              <div class="thump-break vstack gap-3 my-2">
+                <div class="brand hstack">
+                  <div class="me-auto">Danh mục</div>
+                  <newan class="text-primary">{{editProduct.categories_id == 1 ? 'Áo'
+                    : (editProduct.categories_id == 2 ? 'Quần' : '')}}</newan>
+                </div>
+                <div class="status hstack">
+                  <div class="me-auto">Thể loại</div>
+                  <newan class="text-primary">{{editProduct.gender}}</newan>
+                </div>
+              </div>
+
+              <div class="ct-size mb-3">
+                <div class="text-black mb-1">Kích thước: size S</div>
+                <a href="#" class="btn btn-primary text-light">S</a>
+                <a href="#" class="btn btn-default border ">M</a>
+                <a href="#" class="btn btn-default border">L</a>
+                <a href="#" class="btn btn-default border">XL</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

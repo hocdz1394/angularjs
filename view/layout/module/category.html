@@ -1,0 +1,28 @@
+<div id="owl-carousel2" class="owl-carousel owl-theme owl-loaded ">
+  <div class="owl-stage-outer">
+    <div class="owl-stage">
+      <div ng-repeat="cata in categories" class="owl-item">
+        <div data-aos="fade-up" class="thumb-danhmuc ">
+          <picture class=" position-relative row">
+            <img class="danhmuc-back" ng-src="../../img/{{cata.bg-img}}" alt="Áo thời trang">
+            <div class="thumb-content position-absolute zdex d-flex flex">
+              <span class="title1 fs-5">Sản phẩm</span>
+              <span class="title2 fs-3">{{cata.name}}</span>
+              <a href="#!products" class="btn btn-primary rounded-5 btn-sm w-25 mt-3 text-light hvbg"
+                title="xem thêm">Xem
+                thêm</a>
+            </div>
+            <picture class="zdex wat">
+              <img class="danhmuc-imgtop-0 position-absolute img-fluid zdex" ng-src="../../img/{{cata.img}}"
+                alt="Áo thời trang">
+            </picture>
+          </picture>
+        </div>
+      </div>
+      <div class="owl-item"></div>
+      <div class="owl-item"></div>
+      <div class="owl-item"></div>
+    </div>
+  </div>
+</div>
+<script src="../../../js/owl.js"></script>

@@ -1,0 +1,91 @@
+<nav data-mdb-navbar-init class="navbar navbar-expand-lg bg-body-tertiary mb-4">
+  <div class="container-fluid d-flex align-content-center">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb align-items-center mb-0">
+        <li class="breadcrumb-item"><a href="#"><i class=" fs-5 bi-house-door-fill"></i>Trang chủ</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a class="fs-6 text-primary" href="#">Đơn hàng của
+            bạn</a>
+        </li>
+      </ol>
+    </nav>
+  </div>
+</nav>
+<!-- main -->
+<div class="main">
+  <div class="row justify-content-between mb-5">
+    <div class="col-lg-6 col-12 ps-6">
+      <div class="row">
+        <div class="col-2"><img class="w-100" src="../../img/correct.png" alt=""></div>
+        <div class="col-10">
+          <strong class="fs-5">Cảm ơn bạn đã đặt hàng</strong>
+          <div class="bill-title mt-1 fs-6_5">
+            Một email xác nhận đã được gửi tới {{bills[0].email}}. <br>
+            Xin vui lòng kiểm tra email của bạn
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4 border">
+        <div class="row p-3">
+          <div class="col-6">
+            <div class="fs-5">Thông tin mua hàng</div>
+            <div class="fs-6_5 text-gray pt-1">{{bills[0].name}}</div>
+            <div class="fs-6_5 text-gray pt-2">{{bills[0].email}}</div>
+            <div class="fs-6_5 text-gray pt-2">{{bills[0].phone}}</div>
+          </div>
+          <div class="col-6">
+            <div class="fs-5">Địa chỉ nhận hàng</div>
+            <div class="fs-6_5 text-gray pt-1">{{bills[0].address}}</div>
+            <div class="fs-6_5 text-gray pt-2">{{bills[0].phone}}</div>
+          </div>
+        </div>
+        <div class="row p-3">
+          <div class="col-6">
+            <div class="fs-5">Phương thức thanh toán</div>
+            <div class="fs-6_5 text-gray pt-1">{{bills[0].paymentMethod}}</div>
+          </div>
+          <div class="col-6">
+            <div class="fs-5">Phương thức vận chuyển</div>
+            <div class="fs-6_5 text-gray pt-1">Giao hàng tận nơi</div>
+          </div>
+        </div>
+      </div>
+      <a class="btn text-light btn-primary hvbg mt-3 end-0" href="#!">Tiếp tục mua hàng</a>
+    </div>
+    <div class="col-lg-4 col-12 me-6 end-0 bg-lightgray rounded-3">
+      <div class="your-order">
+        <h4 class="text-uppercase text-primary fw-bold mt-3">Đơn hàng của bạn</h4>
+        <div class="p-3 table-responsive">
+          <div ng-repeat="cart in billscart[0]" class="row py-3 ng-scope border-bottom border-top">
+            <div class="col-3">
+              <img class="w-75" src="../../img/{{cart.img}}" alt="">
+            </div>
+            <div class="col-9">
+              <div class="row">
+                <div class="title-name ng-binding">{{cart.name}}</div>
+
+              </div><br>
+              <div class="total hstack justify-content-between">
+                <div class="sl">Số lượng: <strong class="">{{cart.quantity}}</strong></div>
+                <div class="title ng-binding">{{cart.quantity*cart.price|number: 0}},000đ</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-3 py-3 ng-scope border-bottom">
+        <div class="py-1 hstack justify-content-between">
+          <div class="text-total">Tạm tính:</div>
+          <div class="price-tt">{{totalPrice|number: 0}},000đ</div>
+        </div>
+        <div class="py-1 hstack justify-content-between">
+          <div class="text-total">Phí vận chuyển:</div>
+          <div class="price-tt">40,000đ</div>
+        </div>
+      </div>
+      <div class="py-1 hstack justify-content-between pb-3">
+        <div class="text-total fs-4">Tổng cộng:</div>
+        <div class="price-tt fs-4 fw-bold text-primary">{{totalPrice+40|number: 0}},000đ</div>
+      </div>
+    </div>
+  </div>
+</div>

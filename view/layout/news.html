@@ -1,0 +1,64 @@
+<!-- nav danh mục trang -->
+<nav data-mdb-navbar-init class="navbar navbar-expand-lg bg-body-tertiary mb-4">
+  <div class="container-fluid d-flex align-content-center">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb align-items-center mb-0">
+        <li class="breadcrumb-item"><a href="#"><i class=" fs-5 bi-house-door-fill"></i>Trang chủ</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a class="fs-6 text-primary" href="#">Tin tức</a>
+        </li>
+      </ol>
+    </nav>
+  </div>
+</nav>
+<!-- main -->
+<div class="blog main row">
+  <div class="col-md-3 order-sm-2 order-md-1 col-sm-12">
+    <div class="blog-row1 row mb-4">
+      <h1 class="text-uppercase fs-5 fw-bold">Danh mục tin tức</h1>
+      <div class="blog-catelgory row">
+        <span class="hvpr mt-3 fs-6 hvpr"><a class="hvpr" href="">Bắt kịp xu hướng</a></span>
+        <span class="hvpr mt-3 fs-6 hvpr"><a class="hvpr" href="">Xây dựng phong cách</a></span>
+      </div>
+    </div>
+    <!-- <div class="blog-row2 row">
+            <h1 class="text-uppercase fs-5 fw-bold">Tin tức nổi bật</h1>
+            <div class="blog-catelgory2">
+              <div class="blog-catelgory-item gap-1 hstack">
+                <a href=""><img class="w-75" src="../../img/category1.png" alt=""></a>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+              </div>
+            </div>
+            <div class="blog-catelgory2">
+              <div class="blog-catelgory-item gap-1 hstack">
+                <a href=""><img class="w-75" src="../../img/category1.png" alt=""></a>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+              </div>
+            </div>
+          </div> -->
+  </div>
+  <div class="col-md-9 order-sm-1 order-md-2 col-sm-12 row">
+    <div ng-repeat="new in news" class="col-md-4 col-sm-12">
+      <div class="card border-0 position-relative">
+        <div class="img-card rounded-2 card-img-top w-100 overflow-hidden">
+          <a href="#!news_details/{{new.id}}">
+            <img ng-if="!isBase64(new.img_news)" class="w-100 h-100" src="../../img/{{new.img_news}}" class="zom"
+              alt="...">
+            <img ng-if="isBase64(new.img_news)" class="w-100 h-100" src="{{new.img_news}}" class="zom" alt="...">
+          </a>
+        </div>
+        <a class="btn btn-primary text-light w-40 fs-7 position-absolute m-2 end-0" href="#">{{new.date}}</a>
+        <div style="
+            height: 182px;
+            display: flex;
+            flex-direction: column;" class="card-body px-0">
+          <strong data-bs-toggle="tooltip" data-bs-title="Phối đồ với quần relax chuẩn men dành cho nam"
+            class="card-title text-uppercase truncate1">{{new.titles}}</strong>
+          <p class="card-text flex-grow-1 truncate3">{{new.contents}}</p>
+          <a href="#!news_details/{{new.id}}" class="hstack gap-2 text-center hv"><i
+              class="bi bi-plus-circle fs-5"></i>Xem thêm</a>
+        </div>
+      </div>
+    </div>
+  </div>

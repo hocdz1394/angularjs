@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ecommerce_Ps28717</title>
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/fontawesome.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css"
+    integrity="sha512-UTNP5BXLIptsaj5WdKFrkFov94lDx+eBvbKyoe1YAfjeRPC+gT5kyZ10kOHCfNZqEui1sxmqvodNUx3KbuYI/A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css"
+    integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body ng-app="myapp" ng-controller="myCtrl">
+  <div class="container-fluid">
+    <!-- header -->
+    <header ng-include="'view/layout/module/header.html'"></header>
+    <!-- --include-- -->
+    <div ng-view class="container top-90"></div>
+    <footer ng-include="'view/layout/module/footer.html'" class="footer text-sm-center text-lg-start "></footer>
+  </div>
+  <!-- TOAST -->
+  <div id="" class="toast-container end-0" style="z-index: 1000;top: 20vh;position: fixed;">
+    <div ng-class="{'show':showToast}" class="toast text-bg-success " role="alert" aria-live="assertive"
+      aria-atomic="true">
+      <div class="toast-header">
+        <i class="fa-regular fa-circle-check fa-shake" style="color: #63E6BE;"></i>
+        <strong class="me-auto">Chúc mừng</strong>
+        <small class="text-body-secondary">Ngay bây giờ</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body d-flex">
+        Thêm giỏ hàng thành công <strong class="ms-4 d-inline">x {{toastCount}}</strong>
+      </div>
+
+    </div>
+  </div>
+  <!-- MODAL PRODUCT  -->
+  <div class="modal fade" id="modalProduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header border-0">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-6 col-sm-12">
+              <div class="modal-pro-img">
+                <img class="w-90 img-thumbnail" src="img/{{idSp.thumbnai_img[0]}}" alt="">
+              </div>
+              <div class="modal-pro-imgmini d-flex gap-4 w-100 mt-2">
+                <img src="img/{{idSp.thumbnai_img[0]}}" alt="" class="w-25 h-25 img-thumbnail">
+                <img src="img/{{idSp.thumbnai_img[1]}}" alt="" class="w-25 h-25 img-thumbnail">
+                <img src="img/{{idSp.thumbnai_img[2]}}" alt="" class="w-25 h-25 img-thumbnail">
+              </div>
+            </div>
+            <div class="col-lg-6 col-sm-12">
+              <div class="details-pro">
+                <h1 class="title-product hv fw-bold fs-4">{{idSp.name}}</h1>
+                <div class="thump-break hstack gap-3 my-2">
+                  <div class="brand">Thương hiệu: <span class="text-primary">Sudes</span></div>
+                  <div class="status">Tình trạng: <span class="text-primary">Còn hàng</span></div>
+                </div>
+                <div class="price-box hstack gap-4 position-relative mb-3">
+                  <strong class="text-primary h3">{{idSp.price|number: 0}},000đ</strong>
+                  <label class="text-decoration-line-through">{{idSp.listed_price|number:
+                    0}},000đ</label>
+                </div>
+                <div class="ct-size mb-3">
+                  <div class="text-black mb-1">Kích thước: size S</div>
+                  <a href="#" class="btn btn-primary text-light">S</a>
+                  <a href="#" class="btn btn-default border ">M</a>
+                  <a href="#" class="btn btn-default border">L</a>
+                  <a href="#" class="btn btn-default border">XL</a>
+                </div>
+                <div class="ct-color mb-3">
+                  <div class="text-black mb-1">Màu sắc: Trắng</div>
+                  <div class="color-video d-flex align-items-center py-1">
+                    <div style="background-color:#ffffff" class="swatches"></div>
+                    <div style="background-color:#000000" class="swatches"></div>
+                    <div style="background-color:#15841e" class="swatches"></div>
+                    <div class="count-color">
+                      + 1
+                    </div>
+                  </div>
+                </div>
+                <div class="soluong pt-2">
+                  <div class="text-black mb-1">Số lượng</div>
+                  <div class="row gap-3">
+                    <div class="col-md-3 col-sm-3 col-md-offset-3">
+                      <div class="input-group">
+                        <div class="qty-input border">
+                          <button class="qty-count qty-count--minus" data-action="minus" type="button">-</button>
+                          <input class="product-qty" type="number" name="product-qty" min="0" max="10" value="1">
+                          <button class="qty-count qty-count--add" data-action="add" type="button">+</button>
+                        </div>
+                      </div>
+                    </div>
+                    <a href="" class="col-md-8 btn mb-3 col-sm-8 text-bg-light border hvbgpr"><i
+                        class="fs-6 bi bi-basket"></i>
+                      Thêm vào
+                      giỏ hàng</a>
+                  </div>
+                  <a href="#" class="col-12 fw-bold btn btn-primary hvbg text-light p-2">MUA NGAY</a>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- CANVAS  -->
+  <div class="offcanvas offcanvas-end " style="justify-items: center;" tabindex="-1" id="offcanvasRight"
+    aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header start-0">
+      <h5 class="offcanvas-title" id="offcanvasRightLabel">Giỏ hàng của bạn</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div ng-repeat="cart in cart" class="row py-3">
+        <div class="col-4">
+          <img ng-if="!isBase64(cart.img)" class="w-100" ng-src="img/{{cart.img}}" alt="">
+          <img ng-if="isBase64(cart.img)" class="w-100" ng-src="{{cart.img}}" alt="">
+        </div>
+        <div class="col-8">
+          <div class="row">
+            <div class="title-name">{{cart.name}}</div>
+            <a><i ng-click="removeCart(cart.id)" class="text-danger fs-5 bi bi-trash3"></i></a>
+          </div>
+          <div class="total hstack">
+            <div class="input-group">
+              <div class="qty-input border">
+                <button class="qty-count qty-count--minus" data-action="minus" type="button"
+                  ng-click="decreaseQuantity(cart.id)">-</button>
+                <input class="product-qty" type="number" name="product-qty" min="0" max="10" ng-model="cart.quantity">
+                <button class="qty-count qty-count--add" data-action="add" type="button"
+                  ng-click="increaseQuantity(cart.id)">+</button>
+              </div>
+            </div>
+            <div class="title">{{cart.quantity*cart.price|number: 0}},000đ</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header vstack">
+        <!-- fake hiển thị -->
+        <div class=" d-none justify-content-between">
+          <p>Tổng số lượng:</p><strong>{{loopArr(totalQuantityshow)}}</strong>
+          <!-- Vị trí này k hiển thị -->
+        </div>
+        <div class=" d-flex justify-content-between">
+          <p>Tổng số lượng:</p><strong>{{totalQuantityshow}}</strong>
+          <!-- Vị trí này hiển thị -->
+        </div>
+        <div class=" d-flex justify-content-between">
+          <p>Tổng tiền:</p><strong ng-change="totalPrice()">{{totalPrice|number: 0}},000đ</strong>
+        </div>
+      </div>
+    </div>
+    <a class="btn btn-primary text-light bottom-0 w-90 m-3" href="#!cart">Thanh toán</a>
+  </div>
+
+  <script src="js/bootstrap.bundle.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+    integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
+  <script src="../../js/owl.js"></script>
+
+  <script src="js/angular.min.js"></script>
+  <script src="js/angular-route.min.js"></script>
+  <script src="js/angular-cookies.min.js"></script>
+  <script src="js/angular-sanitize.min.js"></script>
+  <script src="js/angular.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+  <!-- <script src="js/server.js"></script> -->
+
+</body>
+
+</html>

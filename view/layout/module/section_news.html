@@ -1,0 +1,40 @@
+<div class="title d-flex pb-3">
+  <a class="h3 fw-bold me-auto hv" href="#">Tin tức mới nhất</a>
+  <a href="" class="btn text-bg-dark rounded-5"> Xem thêm...</a>
+</div>
+<div id="owl-carousel7" class="owl-carousel owl-theme owl-loaded owl-drag">
+  <div class="owl-stage-outer">
+    <div class="owl-stage" style="width: 1306px;">
+      <div ng-repeat="new in dsSp.news|limitTo:3" class="owl-item">
+        <div class="card border-0 position-relative">
+          <div class="img-card rounded-2 card-img-top w-100 overflow-hidden">
+            <a href="#!news_details/{{new.id}}">  <img ng-if="!isBase64(new.img_news)"  class="w-100 h-100" src="../../img/{{new.img_news}}" class="zom"alt="...">
+              <img ng-if="isBase64(new.img_news)" class="w-100 h-100" src="{{new.img_news}}" class="zom"alt="..."></a>
+          </div>
+          <a class="btn btn-primary text-light w-40 fs-7 position-absolute m-2 end-0" href="#">{{new.date}}</a>
+          <div style="
+              height: 182px;
+              display: flex;
+              flex-direction: column;" class="card-body px-0">
+            <strong data-bs-toggle="tooltip" data-bs-title="Phối đồ với quần relax chuẩn men dành cho nam"
+              class="card-title text-uppercase truncate1">{{new.titles}}</strong>
+            <p class="card-text flex-grow-1 truncate3">{{new.contents}}</p>
+            <a href="#!news_details/{{new.id}}" class="hstack gap-2 text-center hv"><i
+                class="bi bi-plus-circle fs-5"></i>Xem thêm</a>
+          </div>
+        </div>
+      </div>
+      <div class="owl-item"></div>
+      <div class="owl-item"></div>
+    </div>
+  </div>
+  <div class="owl-nav disabled"><button type="button" role="presentation" class="owl-prev"><span
+        aria-label="Previous">‹</span></button><button type="button" role="presentation" class="owl-next"><span
+        aria-label="Next">›</span></button></div>
+  <div class="owl-dots disabled"></div>
+</div>
+<script src="../../../js/owl.js"></script>
+<script>
+  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+</script>

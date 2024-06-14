@@ -1,0 +1,65 @@
+<div class="title d-flex pb-3">
+  <a class="h3 fw-bold me-auto hv" href="#">Sản phẩm mới</a>
+  <a href="" class="btn text-bg-dark rounded-5 hvbg"> Xem thêm...</a>
+</div>
+<!-- main newpro -->
+<div id="owl-carousel5" class="owl-carousel owl-theme owl-loaded">
+  <div class="owl-stage-outer">
+    <div class="owl-stage">
+      <div ng-repeat="sp in dspro| filter:{ isNewproducts:true }|limitTo:7" class="owl-item">
+        <div class="card">
+          <div class="img-spfl position-relative card-img-top">
+            <img ng-if="!isBase64(sp.thumbnai_img[0])" ng-src="../../img/{{sp.img}}" alt="" class="sp">
+            <img ng-if="isBase64(sp.thumbnai_img[0])" ng-src="{{sp.thumbnai_img[0]}}" alt="" class="sp">
+            <div class="img-khung">
+              <img src="../../img/title_image_3_tag.png" class="mt position-absolute bottom-0 w-90" alt="">
+              <a class="hv" href=""><i
+                  class="bi bi-qr-code-scan position-absolute top-0 m-4 text-primary zdex hv"></i></a>
+            </div>
+            <div class="row">
+              <div class="action text-center position-absolute top-50 start-0">
+                <a href="#!product_details/{{sp.id}}" class="mx-2"><i class="bi bi-sliders ic ic1 hvbgpr"></i></a>
+                <a href="#" class="mx-2"><i class="bi bi-eye-fill ic ic2 hvbgpr" data-bs-toggle="modal"
+                    ng-click="laymodel(sp.id)" data-bs-target="#modalProduct"></i></a>
+                <a href="" class="mx-2"><i class="bi bi-cart-fill ic ic3 hvbgpr"
+                    ng-click="addToCart(sp); showToasts()"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <a href="#!product_details/{{sp.id}}">
+              <div class="card-title fw-bold fs-5_5 hv truncate">{{sp.name}}</div>
+            </a>
+            <div class="card-text row">
+              <span class="card-text-left col-auto me-auto fs-6_5">{{sp.gender}}</span>
+              <span class="card-text-right col-auto fs-6_5  d-flex gap-1 ">Size: <div class="d-flex"
+                  ng-repeat="size in sp.size" class=""> {{size}} </div></span>
+            </div>
+            <!-- <div class="color-video d-flex align-items-center py-1">
+              <div style="background-color:#ffffff" class="swatches"></div>
+              <div style="background-color:#000000" class="swatches"></div>
+              <div style="background-color:#15841e" class="swatches"></div>
+              <div class="count-color">
+                + 1
+              </div>
+            </div> -->
+            <div class="price-box d-flex align-items-center justify-content-between mb-1">
+              <span class="fs-5 fw-bold text-primary">{{sp.price|number: 0}},000đ <span
+                  class="fs-6_5 text-gray fw-light text-decoration-line-through start-0">{{sp.listed_price|number:0}},000đ</span></span>
+              <div class="smart position-relative"><img class="" src="../../img/union.png" alt=""><span
+                  class="fw-bold text-light zdex position-absolute r5 top-0">-{{(sp.listed_price-sp.price)/sp.listed_price*100|number:0}}%
+                </span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-none owl-item"></div>
+      <div class="d-none owl-item"></div>
+      <div class="d-none owl-item"></div>
+      <div class="d-none owl-item"></div>
+      <div class="d-none owl-item"></div>
+      <div class="d-none owl-item"></div>
+    </div>
+  </div>
+</div>
+<script src="../../../js/owl.js"></script>

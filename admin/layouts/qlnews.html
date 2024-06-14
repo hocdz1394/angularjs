@@ -1,0 +1,204 @@
+<main class="app-content">
+  <div class="app-title">
+    <ul class="app-breadcrumb breadcrumb side mb-0">
+      <li class="breadcrumb-item "><a class="text-primary fw-light" href="#"><b>Quản lý bài viết</b></a></li>
+    </ul>
+    <div id="clock"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="tile">
+        <div class="tile-body">
+          <div class="row element-button">
+            <div class="col-sm-2 me-auto">
+              <a class="btn btn-add btn-sm" href="#!addnews" title="Thêm"><i class="fas fa-plus"></i>
+                Thêm bài viết</a>
+            </div>
+            <div class="col-sm-3">
+              <form class="d-flex" role="search">
+                <input class="form-control me-2 mb-1 h-25" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success btn-sm" type="submit">Search</button>
+              </form>
+            </div>
+          </div>
+          <table class="table table-hover table-bordered" id="sampleTable">
+            <thead>
+              <tr>
+
+                <th width="10" class="">Id</th>
+                <th class="col-3">Tên bài viết</th>
+                <th>Ảnh</th>
+                <th>Tác giả</th>
+                <th>Ngày viết bài</th>
+                <th>Thể loại</th>
+                <th>Chức năng</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="new in arrNew | limitTo:20 | orderBy:'-id'">
+                <td>{{new.id}}</td>
+                <td>{{new.titles}}</td>
+                <td>
+                  <img class="img-thumbnail" ng-if="isBase64(new.img_news)" ng-src="{{ new.img_news }}" alt=""
+                    width="100px;">
+                  <img class="img-thumbnail" ng-if="!isBase64(new.img_news)" ng-src="../../img/{{ new.img_news }}"
+                    alt="" width="100px;">
+                </td>
+                <td>{{new.author}}</td>
+                <td>{{new.date}}</td>
+                <td>{{new.trend == true ? 'Xu hướng' : (new.style == true ? 'Phong cách' : '')}}</td>
+                <td>
+                  <button ng-click="removeOneNew(new.id)" class="btn btn-danger btn-sm trash" type="button"
+                    title="Xóa"><i class="fas fa-trash-alt"></i>
+                  </button>
+                  <button ng-click="editmodelNew(new.id)" class="btn btn-warning btn-sm edit" type="button" title="Sửa"
+                    id="show-emp" data-toggle="modal" data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!--
+MODAL
+-->
+<div class="modal fade py-4" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
+  data-keyboard="false">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl " role="document">
+    <div class="modal-content">
+      <div class="col-md-12 scrolling">
+        <h3 class="tile-title mt-2 hstack gap-2 ">Chỉnh sửa bài viết: <div class="text-primary me-auto">
+            {{editNew.titles}}
+          </div><button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </h3>
+        <div class="tile">
+          <form ng-submit="editNews()" novalidate class="was-validated">
+            <div class="tile-body row">
+              <div class="form-group col-md-3">
+                <label class="control-label">Tên bài viết</label>
+                <input ng-model="editNew.titles" class="form-control" type="text" required>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Tác giả</label>
+                <input ng-model="editNew.author" class="form-control" type="text" required>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Thể loại</label> <br>
+                <div class="row">
+                  <label class="mb-0" for=""><input type="checkbox" ng-model="editNew.trend"
+                      ng-init="editNew.trend = false"> Xu hướng</label>
+                </div>
+                <div class="row">
+                  <label class="mb-0" for=""><input type="checkbox" ng-model="editNew.style"
+                      ng-init="editNew.style = false"> phong cách</label>
+                </div>
+              </div>
+              <div class="form-group col-md-4">
+                <label class="control-label">Ảnh bài viết</label>
+                <div id="myfileupload">
+                  <input type="file" id="editNewImage" onchange="angular.element(this).scope().uploadFileEdit(this)" accept="image/*" />
+                </div>
+                <img class="w-75 img-thumbnail" ng-if="isBase64(editNew.img_news)"
+                ng-src="{{editNew.img_news}}" style="max-width: 200px;"><br>
+              <img class="w-75 img-thumbnail" ng-if="!isBase64(editNew.img_news)"
+                ng-src="../../img/{{ editNew.img_news }}" style="max-width: 200px;"><br>
+              </div>
+              <div class="form-group col-md-12">
+                <label class="control-label">Mô tả của chi tiết bài viết</label>
+                <textarea ck-editor ng-model="editNew.contents" class="form-control" name="mota" id="mota"></textarea>
+              </div>
+
+            </div>
+            <button class="btn btn-success" type="submit">Lưu lại</button>
+            <a class="btn btn-danger" href="#!qlnews">Hủy bỏ</a>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!--
+MODAL
+-->
+<div class="modal fade" id="modalProduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-md">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-6 col-sm-12">
+            <div class="modal-pro-img">
+              <img class="w-90 img-thumbnail" ng-if="isBase64(editProduct.thumbnai_img[0])"
+                ng-src="{{editProduct.thumbnai_img[0]}}" alt="">
+              <img class="w-90 img-thumbnail" ng-if="!isBase64(editProduct.thumbnai_img[0])"
+                ng-src="../../img/{{editProduct.thumbnai_img[0]}}" alt="">
+
+
+            </div>
+            <div class="modal-pro-imgmini d-flex gap-4 w-100 mt-2">
+              <img ng-if="isBase64(editProduct.thumbnai_img[1])" ng-src="{{editProduct.thumbnai_img[1]}}" alt=""
+                class="w-25 h-25 img-thumbnail">
+              <img ng-if="!isBase64(editProduct.thumbnai_img[1])" ng-src="../../img/{{editProduct.thumbnai_img[1]}}"
+                alt="" class="w-25 h-25 img-thumbnail">
+
+              <img ng-if="isBase64(editProduct.thumbnai_img[2])" ng-src="{{editProduct.thumbnai_img[2]}}" alt=""
+                class="w-25 h-25 img-thumbnail">
+              <img ng-if="!isBase64(editProduct.thumbnai_img[2])" ng-src="../../img/{{editProduct.thumbnai_img[2]}}"
+                alt="" class="w-25 h-25 img-thumbnail">
+
+              <img ng-if="isBase64(editProduct.thumbnai_img[0])" ng-src="{{editProduct.thumbnai_img[0]}}" alt=""
+                class="w-25 h-25 img-thumbnail">
+              <img ng-if="!isBase64(editProduct.thumbnai_img[0])" ng-src="../../img/{{editProduct.thumbnai_img[0]}}"
+                alt="" class="w-25 h-25 img-thumbnail">
+
+
+            </div>
+          </div>
+          <div class="col-lg-6 col-sm-12">
+            <div class="details-pro">
+              <h1 class="title-product hv fw-bold fs-4">{{editProduct.name}}</h1>
+              <div class="thump-break vstack gap-3 my-2">
+                <div class="brand hstack">
+                  <div class="me-auto">Giá bán</div>
+                  <newan class="text-primary">{{editProduct.price|number:
+                    0}},000đ</newan>
+                </div>
+                <div class="status hstack">
+                  <div class="me-auto">Giá niêm yết</div>
+                  <newan class="text-primary">{{editProduct.listed_price|number:
+                    0}},000đ</newan>
+                </div>
+              </div>
+              <div class="thump-break vstack gap-3 my-2">
+                <div class="brand hstack">
+                  <div class="me-auto">Danh mục</div>
+                  <newan class="text-primary">{{editProduct.categories_id == 1 ? 'Áo'
+                    : (editProduct.categories_id == 2 ? 'Quần' : '')}}</newan>
+                </div>
+                <div class="status hstack">
+                  <div class="me-auto">Thể loại</div>
+                  <newan class="text-primary">{{editProduct.gender}}</newan>
+                </div>
+              </div>
+
+              <div class="ct-size mb-3">
+                <div class="text-black mb-1">Kích thước: size S</div>
+                <a href="#" class="btn btn-primary text-light">S</a>
+                <a href="#" class="btn btn-default border ">M</a>
+                <a href="#" class="btn btn-default border">L</a>
+                <a href="#" class="btn btn-default border">XL</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

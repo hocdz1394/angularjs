@@ -1,0 +1,272 @@
+<main class="app-content">
+  <div class="app-title">
+    <ul class="app-breadcrumb breadcrumb side mb-0">
+      <li class="breadcrumb-item "><a class="text-primary fw-light" href="#"><b>Quản lý sản phẩm</b></a></li>
+    </ul>
+    <div id="clock"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="tile">
+        <div class="tile-body">
+          <div class="row element-button">
+            <div class="col-sm-2 me-auto">
+
+              <a class="btn btn-add btn-sm" href="#!addsanpham" title="Thêm"><i class="fas fa-plus"></i>
+                Thêm sản phẩm</a>
+            </div>
+            <div class="col-sm-3">
+              <form class="d-flex" role="search">
+                <input class="form-control me-2 mb-1 h-25" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success btn-sm" type="submit">Search</button>
+              </form>
+            </div>
+          </div>
+          <table class="table table-hover table-bordered" id="sampleTable">
+            <thead>
+              <tr>
+
+                <th width="10" class="">Id</th>
+                <th class="col-3">Tên sản phẩm</th>
+                <th width="100">Ảnh</th>
+                <th width="120">Giá bán</th>
+                <th width="120">Giá vốn</th>
+                <th width="70">Danh mục</th>
+                <th width="70">Thể loại</th>
+                <th width="130">Chức năng</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="sp in arrSpNumber | limitTo:20 | orderBy:'-id'">
+                <td>{{sp.id}}</td>
+                <td>{{sp.name}}</td>
+                <td>
+                  <img class="img-thumbnail" ng-if="isBase64(sp.thumbnai_img[0])" ng-src="{{ sp.thumbnai_img[0] }}"
+                    alt="" width="70px;">
+                  <img class="img-thumbnail" ng-if="! isBase64(sp.thumbnai_img[0])"
+                    ng-src="../../img/{{ sp.thumbnai_img[0] }}" alt="" width="70px;">
+                </td>
+                <td>{{sp.price|number:0}},000đ</td>
+                <td>{{sp.listed_price|number:0}},000đ</td>
+                <td>{{sp.categories_id == 1 ? 'Áo' : (sp.categories_id == 2 ? 'Quần' : '')}}</td>
+                <td>{{sp.gender}}</td>
+                <td>
+                  <button ng-click="editmodelSP(sp.id)" data-toggle="modal" data-target="#modalProduct"
+                    class="btn btn-info btn-sm trash" type="button" title="chitiet"><i class="bi bi-eye-fill"></i>
+                  </button>
+                  <button ng-click="removeOnepro(sp.id)" class="btn btn-danger btn-sm trash" type="button"
+                    title="Xóa"><i class="fas fa-trash-alt"></i>
+                  </button>
+                  <button ng-click="editmodelSP(sp.id)" class="btn btn-warning btn-sm edit" type="button" title="Sửa"
+                    id="show-emp" data-toggle="modal" data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!--
+MODAL
+-->
+<div class="modal fade py-4" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
+  data-keyboard="false">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl " role="document">
+    <div class="modal-content">
+      <div class="col-md-12 scrolling">
+        <h3 class="tile-title mt-2 hstack gap-2 ">Chỉnh sửa sản phẩm: <div class="text-primary me-auto">
+            {{editProduct.name}}
+          </div><button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </h3>
+        <div class="tile">
+          <form ng-submit="editProducts()" class="">
+            <div class="tile-body row">
+              <div class="form-group col-md-3">
+                <label class="control-label">Tên sản phẩm</label>
+                <input ng-model="editProduct.name" class="form-control" type="text" required>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="exampleSelect1" class="control-label">Danh mục</label>
+                <select class="form-control" ng-model="editProduct.categories_id" id="exampleSelect1"
+                  required="required">
+                  <!-- <option selected value="">{{editProduct.categories_id}}</option> -->
+                  <option ng-repeat="category in arrCata" value="{{category.id}}"
+                    ng-selected="editProduct.categories_id==category.id">{{category.name}}</option>
+                </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Giá bán</label>
+                <input ng-model="editProduct.price" class="form-control" type="text" required>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Giá niêm yết</label>
+                <input ng-model="editProduct.listed_price" class="form-control" type="text" required>
+              </div>
+              <div class="form-group col-md-3">
+                <label class="control-label">Trạng thái</label> <br>
+                <div class="row">
+                  <label class="mb-0" for=""><input type="checkbox" ng-model="editProduct.isFlashsale"
+                      ng-init="editProduct.isFlashsale = false"> Flash sale</label>
+                </div>
+                <div class="row">
+                  <label class="mb-0" for=""><input type="checkbox" ng-model="editProduct.isNewproducts"
+                      ng-init="editProduct.isNewproducts = false"> Sản phẩm mới</label>
+                </div>
+                <div class="row">
+                  <label class="mb-0" for=""><input type="checkbox" ng-model="editProduct.isFeature"
+                      ng-init="editProduct.isFeature = false"> Sản phẩm nổi bật</label>
+                </div>
+              </div>
+              <div class="form-group col-md-4">
+                <label class="control-label">Thể loại</label> <br>
+                <div class="hstack gap-2"><input type="radio" name="gender" ng-model="editProduct.gender" value="Nam"
+                    id="">
+                  <div class="">Nam</div>
+                </div>
+                <div class="hstack gap-2"><input type="radio" name="gender" ng-model="editProduct.gender" value="Nữ"
+                    id="">
+                  <div class="">Nữ</div>
+                </div>
+                <div class="hstack gap-2"><input type="radio" name="gender" ng-model="editProduct.gender" value="Unisex"
+                    id="">
+                  <div class="">Unisex</div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-4">
+                <label class="control-label">Ảnh chính & ảnh chi tiết 1,2,3</label>
+                <div id="myfileupload">
+                  <input type="file" onchange="angular.element(this).scope().editFile(this)" accept="image/*"
+                    multiple="multiple" />
+                </div>
+                <div class="w-50">
+                  <img class="w-75 img-thumbnail" ng-if="isBase64(editProduct.thumbnai_img[0])"
+                    ng-src="{{editProduct.thumbnai_img[0]}}" style="max-width: 200px;"><br>
+                  <img class="w-75 img-thumbnail" ng-if="!isBase64(editProduct.thumbnai_img[0])"
+                    ng-src="../../img/{{ editProduct.thumbnai_img[0] }}" style="max-width: 200px;"><br>
+                </div>
+                <div class="row">
+                  <div class="col-3">
+                    <img class="w-100 img-thumbnail" ng-if="isBase64(editProduct.thumbnai_img[0])"
+                      ng-src="{{editProduct.thumbnai_img[0]}}" style="max-width: 200px;"><br>
+                    <img class="w-100 img-thumbnail" ng-if="!isBase64(editProduct.thumbnai_img[0])"
+                      ng-src="../../img/{{ editProduct.thumbnai_img[0] }}" style="max-width: 200px;"><br>
+                  </div>
+                  <div class="col-3">
+                    <img class="w-100 img-thumbnail" ng-if="isBase64(editProduct.thumbnai_img[1])"
+                      ng-src="{{editProduct.thumbnai_img[1]}}" style="max-width: 200px;"><br>
+                    <img class="w-100 img-thumbnail" ng-if="!isBase64(editProduct.thumbnai_img[1])"
+                      ng-src="../../img/{{ editProduct.thumbnai_img[1] }}" style="max-width: 200px;"><br>
+                  </div>
+                  <div class="col-3">
+                    <img class="w-100 img-thumbnail" ng-if="isBase64(editProduct.thumbnai_img[2])"
+                      ng-src="{{editProduct.thumbnai_img[2]}}" style="max-width: 200px;"><br>
+                    <img class="w-100 img-thumbnail" ng-if="!isBase64(editProduct.thumbnai_img[2])"
+                      ng-src="../../img/{{ editProduct.thumbnai_img[2] }}" style="max-width: 200px;"><br>
+                  </div>
+                  <div class="col-3">
+                    <img class="w-100 img-thumbnail" ng-if="isBase64(sp.thumbnai_img[3])"
+                      ng-src="{{editProduct.thumbnai_img[3]}}" style="max-width: 200px;"><br>
+                    <img class="w-100 img-thumbnail" ng-if="!isBase64(sp.thumbnai_img[3])"
+                      ng-src="../../img/{{ editProduct.thumbnai_img[3] }}" style="max-width: 200px;"><br>
+                  </div>
+                </div>
+
+              </div>
+              <div class="form-group col-md-12">
+                <label class="control-label">Mô tả của chi tiết sản phẩm</label>
+                <textarea ck-editor ng-model="editProduct.product_detail[0].infor_detail" class="form-control" name="mota" id="mota"></textarea>
+              </div>
+
+            </div>
+            <div class="footer hstack">
+              <div class="me-auto"></div>
+              <button class="btn btn-success" type="submit">Lưu lại</button>
+              <a class="ms-2 btn btn-danger" data-dismiss="modal" href="#">Hủy bỏ</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!--
+MODAL
+-->
+<div class="modal fade " id="modalProduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-md">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-6 col-sm-12">
+            <div class="modal-pro-img">
+              <img class="w-90 img-thumbnail" ng-if="isBase64(editProduct.thumbnai_img[0])"
+                ng-src="{{editProduct.thumbnai_img[0]}}" alt="">
+              <img class="w-90 img-thumbnail" ng-if="!isBase64(editProduct.thumbnai_img[0])"
+                ng-src="../../img/{{editProduct.thumbnai_img[0]}}" alt="">
+
+
+            </div>
+            <div class="modal-pro-imgmini d-flex gap-4 w-100 mt-2">
+              <img ng-if="isBase64(editProduct.thumbnai_img[1])" ng-src="{{editProduct.thumbnai_img[1]}}" alt=""
+                class="w-25 h-25 img-thumbnail">
+              <img ng-if="!isBase64(editProduct.thumbnai_img[1])" ng-src="../../img/{{editProduct.thumbnai_img[1]}}"
+                alt="" class="w-25 h-25 img-thumbnail">
+
+              <img ng-if="isBase64(editProduct.thumbnai_img[2])" ng-src="{{editProduct.thumbnai_img[2]}}" alt=""
+                class="w-25 h-25 img-thumbnail">
+              <img ng-if="!isBase64(editProduct.thumbnai_img[2])" ng-src="../../img/{{editProduct.thumbnai_img[2]}}"
+                alt="" class="w-25 h-25 img-thumbnail">
+
+              <img ng-if="isBase64(editProduct.thumbnai_img[0])" ng-src="{{editProduct.thumbnai_img[0]}}" alt=""
+                class="w-25 h-25 img-thumbnail">
+              <img ng-if="!isBase64(editProduct.thumbnai_img[0])" ng-src="../../img/{{editProduct.thumbnai_img[0]}}"
+                alt="" class="w-25 h-25 img-thumbnail">
+
+
+            </div>
+          </div>
+          <div class="col-lg-6 col-sm-12">
+            <div class="details-pro">
+              <h1 class="title-product hv fw-bold fs-4">{{editProduct.name}}</h1>
+              <div class="thump-break vstack gap-3 my-2">
+                <div class="brand hstack">
+                  <div class="me-auto">Giá bán</div> <span class="text-primary">{{editProduct.price|number:
+                    0}},000đ</span>
+                </div>
+                <div class="status hstack">
+                  <div class="me-auto">Giá niêm yết</div><span class="text-primary">{{editProduct.listed_price|number:
+                    0}},000đ</span>
+                </div>
+              </div>
+              <div class="thump-break vstack gap-3 my-2">
+                <div class="brand hstack">
+                  <div class="me-auto">Danh mục</div> <span class="text-primary">{{editProduct.categories_id == 1 ? 'Áo'
+                    : (editProduct.categories_id == 2 ? 'Quần' : '')}}</span>
+                </div>
+                <div class="status hstack">
+                  <div class="me-auto">Thể loại</div><span class="text-primary">{{editProduct.gender}}</span>
+                </div>
+              </div>
+
+              <div class="ct-size mb-3">
+                <div class="text-black mb-1">Kích thước: size S</div>
+                <a href="#" class="btn btn-primary text-light">S</a>
+                <a href="#" class="btn btn-default border ">M</a>
+                <a href="#" class="btn btn-default border">L</a>
+                <a href="#" class="btn btn-default border">XL</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,215 @@
+<main class="app-content">
+  <div class="app-title">
+    <ul class="app-breadcrumb breadcrumb side mb-0">
+      <li class="breadcrumb-item active"><b class="text-primary">Danh sách đơn hàng</b></li>
+    </ul>
+    <div id="clock"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="tile">
+        <div class="tile-body">
+          <div class="row element-button">
+            <div class="col-sm-2 me-auto">
+
+              <a class="btn btn-add btn-sm" href="#!addsanpham" title="Thêm"><i class="fas fa-plus"></i>
+                Thêm sản phẩm</a>
+            </div>
+            <div class="col-sm-3">
+              <form class="d-flex ng-pristine ng-valid" role="search">
+                <input class="form-control me-2 mb-1 h-25" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success btn-sm" type="submit">Search</button>
+              </form>
+            </div>
+            <div class="ms-2 col-sm-2 btn-group me-0">
+              <button type="button" class="btn btn-primary btn-sm text-white dropdown-toggle ng-binding"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Sắp xếp: Mặc định
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <div class="dropdown-item" ng-click="sortBy('-name','Tên A->Z')">Tên A-&gt;Z</div>
+                </li>
+                <li>
+                  <div class="dropdown-item" ng-click="sortBy('name','Tên Z->A')">Tên Z-&gt;A</div>
+                </li>
+                <li>
+                  <div class="dropdown-item" ng-click="sortBy('price','Giá tăng dần')">Giá tăng đần</div>
+                </li>
+                <li>
+                  <div class="dropdown-item" ng-click="sortBy('-price','Giá giảm dần')">Giá giảm dần</div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <table class="table table-hover table-bordered" id="sampleTable">
+            <thead>
+              <tr>
+                <th>ID đơn hàng</th>
+                <th>Khách hàng</th>
+                <th>Đơn hàng</th>
+                <th>Tổng số lượng</th>
+                <th>Tổng tiền</th>
+                <th>Tình trạng</th>
+                <th>Chức năng</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat=" bill in arrBills">
+                <td>{{bill.id}}</td>
+                <td>{{bill.name}}</td>
+                <td class="text-start">
+                  {{bill.cart[0].name}}...
+                </td>
+                <td class="text-primary fw-bold">{{ calculateTotal(bill.cart).totalQuantity }}</td>
+                <td>{{ calculateTotal(bill.cart).totalPrice|number:0}},000đ</td>
+                <td><button ng-disabled="bill.status==='Đơn hàng đã giao'||bill.status==='Đơn hàng đã huỷ'"
+                    type="button" ng-click="changeStatus(bill.status, bill.id)"
+                    ng-class="{'btn-primary':bill.status==='Chờ xử lý','btn-info':bill.status==='Đang giao hàng','btn-success':bill.status==='Đơn hàng đã giao','btn-info':bill.status==='Đang giao hàng', 'btn-warning':bill.status==='Huỷ đơn hàng','btn-danger':bill.status==='Đơn hàng đã huỷ'}"
+                    class="badge btn">{{
+                      bill.status === 'Chờ xử lý' ? 'Duyệt' :
+                      (bill.status === 'Đang giao hàng' ? 'Gửi cho shipper' :
+                      (bill.status === 'Huỷ đơn hàng' ? 'Xác nhận huỷ' :
+                      (bill.status === 'Đơn hàng đã giao' ? 'Hoàn thành' :
+                      (bill.status === 'Đơn hàng đã huỷ' ? 'Đã huỷ' : bill.status)))
+                  )}}</button></a>
+                </td>
+                <td>
+                  <button ng-click="detailBill(bill.id)" class="btn btn-warning btn-sm edit" type="button"
+                    title="Chi tiết" id="show-emp" data-toggle="modal" data-target="#modalDonhang"><i
+                      class="fas fa-edit"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+<!-- MODAL -->
+<div class="modal fade pe-0" id="modalDonhang" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="tile mb-0">
+        <h3 class="tile-title hstack">
+          <div class="me-auto">Chi tiết đơn hàng</div> <button type="button" class="btn-close" data-dismiss="modal"
+            aria-label="Close"></button>
+        </h3>
+        <div class="tile-body">
+          <div class="main">
+            <div class="row justify-content-between mb-5">
+              <div class=" col-12 px-7">
+
+                <div class="row border">
+                  <div class="your-order mb-1">
+                    <h4 class="text-uppercase text-primary fw-bold mt-3">Đơn hàng: {{idBill.id}}</h4>
+                  </div>
+                  <div class="row px-3 mt-2">
+                    <div class="col-6">
+                      <div class="fs-5">Mã đơn hàng</div>
+                    </div>
+                    <div class="col-6">
+                      <div class="fs-6_5 text-gray pt-1">{{idBill.id}}</div>
+                    </div>
+                  </div>
+                  <div class="row px-3 mt-2">
+                    <div class="col-6">
+                      <div class="fs-5">Tên khách hàng</div>
+                    </div>
+                    <div class="col-6">
+                      <div class="fs-6_5 text-gray pt-1">{{idBill.name}}</div>
+                    </div>
+                  </div>
+                  <div class="row px-3 mt-2">
+                    <div class="col-6">
+                      <div class="fs-5">Số điện thoại</div>
+                    </div>
+                    <div class="col-6">
+                      <div class="fs-6_5 text-gray pt-1">{{idBill.phone}}</div>
+                    </div>
+                  </div>
+                  <div class="row px-3 mt-2">
+                    <div class="col-6">
+                      <div class="fs-5">Địa chỉ giao hàng</div>
+                      <div class="fs-6_5 text-gray pt-1"></div>
+                    </div>
+                    <div class="col-6">
+                      <div class="fs-6_5 text-gray pt-1">{{idBill.address}}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row px-3 mt-2">
+                    <div class="col-6">
+                      <div class="fs-5">Phương thức thanh toán</div>
+                      <div class="fs-6_5 text-gray pt-1"></div>
+                    </div>
+                    <div class="col-6">
+                      <div class="fs-6_5 text-gray pt-1">{{idBill.paymentMethod}}</div>
+                    </div>
+                  </div>
+                  <div class="row px-3 mt-2">
+                    <div class="col-6">
+                      <div class="fs-5">Tên sản phẩm</div>
+                      <div class="fs-6_5 text-gray pt-1"></div>
+                    </div>
+                    <div class="col-6">
+                      <div ng-repeat="cart in idBillCart" class="fs-6_5 text-gray pt-1">{{cart.name}}
+                        x<strong class="text-primary">{{cart.quantity}}</strong> <br></div>
+                    </div>
+                  </div>
+                  <div class="row px-3 mt-2">
+                    <div class="col-6">
+                      <div class="fs-5">Tổng số lượng</div>
+                      <div class="fs-6_5 text-gray pt-1"></div>
+                    </div>
+                    <div class="col-6">
+                      <div class="fw-bold text-primary pt-1">{{ totalQuantity }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row px-3 mt-2">
+                    <div class="col-6">
+                      <div class="fs-5">Tổng tiền</div>
+                      <div class="fs-6_5 text-gray pt-1"></div>
+                    </div>
+                    <div class="col-6">
+                      <div class="fs-6_5 text-primary fw-bold pt-1">{{totalPrice|number:0}},000đ
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row px-3 mt-2">
+                    <div class="col-6">
+                      <div class="fs-5">Tình trạng</div>
+                      <div class="fs-6_5 text-gray pt-1"></div>
+                    </div>
+                    <div class="col-6">
+                      <button ng-disabled="true" type="button" ng-click="changeStatus(idBill.status, idBill.id)"
+                        ng-class="{'btn-primary':idBill.status==='Chờ xử lý','btn-info':idBill.status==='Đang giao hàng','btn-success':idBill.status==='Đơn hàng đã giao','btn-info':idBill.status==='Đang giao hàng', 'btn-warning':idBill.status==='Huỷ đơn hàng','btn-danger':idBill.status==='Đơn hàng đã huỷ'}"
+                        class="badge btn"> {{(idBill.status === 'Chờ xử lý' ? 'Duyệt' : (idBill.status === 'Đang giao
+                        hàng'
+                        ?
+                        'Gửi cho shipper':(idBill.status === 'Huỷ đơn hàng' ? 'Xác nhận huỷ' :(idBill.status === 'Đơn
+                        hàng
+                        đã
+                        giao' ? 'Hoàn thành':(idBill.status === 'Đơn hàng đã huỷ' ? 'Đã huỷ': idBill.status)))))
+                        }}</button>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

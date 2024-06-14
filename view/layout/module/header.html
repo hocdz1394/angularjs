@@ -1,0 +1,100 @@
+<nav class="navbar navbar-expand-lg csheader zdex">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand ms-md-3 ms-lg-0" href="#"><img src="img/logo.png" alt=""></a>
+    <div class="collapse navbar-collapse order-3 order-lg-2 text-bg-light" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+        <li class="nav-item p-2">
+          <a id="nav-link" class="nav-link  position-relative {{isActive('')}}" aria-current="page" href="#!">Trang
+            chủ</a>
+        </li>
+        <li class="nav-item p-2">
+          <a id="nav-link" class="nav-link  position-relative" href="#!contact">Về chúng tôi</a>
+        </li>
+        <li class="nav-item p-2 dropdown">
+          <a id="nav-link"
+            class="nav-link dropdown-toggle  position-relative {{isActive('products')}} {{isActive('product_details')}}"
+            href="#!products" role="" data-bs-toggle="dropdown" aria-expanded="true">
+            Sản phẩm
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#!products">Tất cả sản phẩm</a></li>
+            <li ng-repeat="dm in dsSp.categories"><a class="dropdown-item"
+                ng-click="filterByCategory(dm.id)">{{dm.name}}</a>
+            </li>
+
+          </ul>
+        </li>
+        <li class="nav-item p-2">
+          <a id="nav-link" class="nav-link  position-relative" href="#!product_details">Sale</a>
+        </li>
+        <li class="nav-item p-2 dropdown">
+          <a id="nav-link"
+            class="nav-link dropdown-toggle  position-relative {{isActive('news')}} {{isActive('news_details')}}"
+            href="#!news" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Tin tức
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#!news">Bắt kịp xu hướng</a></li>
+            <li><a class="dropdown-item" href="#">Xây dựng phong cách</a></li>
+          </ul>
+        </li>
+        <li class="nav-item p-2">
+          <a id="nav-link" class="nav-link position-relative" href="#!contact">Liên hệ</a>
+        </li>
+      </ul>
+      <form class="d-flex me-auto" ng-submit="searchProducts()" role="search">
+        <input ng-model="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button  class="btn btn-dark" type="submit"><i class="bi bi-search"></i></button>
+      </form>
+
+    </div>
+
+    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 order-2 order-lg-3">
+      <li class=" nav-item p-2 d-flex align-items-center">
+        <a class="text-decoration-none" href="#"><i class="bi bi-heart me-4 position-relative">
+            <!-- <span class="position-absolute top-0 start-80 translate-middle badge rounded-pill bg-primary fs-7">
+              9
+              <span class="visually-hidden">unread messages</span>
+            </span> -->
+          </i></a>
+        <a class="text-decoration-none" href="#offcanvasRight" data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i class="bi bi-bag me-2  position-relative">
+            <span class="position-absolute top-0 start-90 translate-middle badge rounded-pill bg-primary fs-7">
+              {{totalQuantityshow}}
+              <span class="visually-hidden">unread messages</span>
+            </span>
+          </i></a>
+        <!-- Vị trí này không hiển thị -->
+        
+        <span  ng-show="currentUser" class="dropdown dropstart">
+          <div data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false"
+            style="width: 28px;height: 28px;">
+            <img style="border-radius: 50%; border: 1px solid;" ng-if="!isBase64(currentUser.img_user)" class="w-100"
+              ng-src="../img/{{ currentUser.img_user }}" alt="">
+            <img ng-if="isBase64(currentUser.img_user)" style="border-radius: 50%; border: 1px solid;" class="w-100"
+              ng-src="{{ currentUser.img_user }}" alt="">
+          </div>
+          <ul class="dropdown-menu dropdown-menu-start">
+            <li class="dropdown-item">Xin chào: <strong class="text-primary">{{currentUser.name}}</strong></li>
+            <li><a class="dropdown-item" href="#!inforUser">Xem thông tin</a></li>
+            <li><a class="dropdown-item" ng-click="logout()">Đăng xuất</a></li>
+          </ul>
+        </span>
+        <span ng-hide="currentUser" class="dropdown dropstart">
+          <i class="bi bi-person-circle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false"></i>
+          <ul class="dropdown-menu dropdown-menu-start">
+            <li><a class="dropdown-item" href="#!register">Đăng ký</a></li>
+            <li><a class="dropdown-item" href="#!login">Đăng nhập</a></li>
+          </ul>
+        </span>
+      </li>
+    </ul>
+
+  
+  </div>
+
+</nav>

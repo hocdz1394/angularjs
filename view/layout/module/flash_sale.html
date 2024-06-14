@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="flash-header row mb-4 text-center">
+    <div class="col-lg-2"><a class="h3 fw-bold" href="#">Flash Sale</a>
+      `
+    </div>
+    <div class="col-lg-8 text-center text-secondary">Combo 599K: Back to School - Share Giảm 239K khi mua 1
+      Collar Shirt + 1
+      Smart
+      Pants</div>
+    <div class="col-lg-2">Chương trình đã kết thúc</div>
+  </div>
+  <!-- --main -->
+  <div id="owl-carousel3" style="cursor: grab;" class="owl-carousel owl-theme owl-loaded">
+    <div class="owl-stage-outer">
+      <div class="owl-stage">
+        <div ng-repeat="sp in dspro| filter:{ isFlashsale:true }|limitTo:6" class="owl-item">
+          <div class="card">
+            <div class="img-spfl position-relative card-img-top">
+              <img ng-if="!isBase64(sp.thumbnai_img[0])" ng-src="../../img/{{sp.img}}" alt="" class="sp">
+            <img ng-if="isBase64(sp.thumbnai_img[0])" ng-src="{{sp.thumbnai_img[0]}}" alt="" class="sp">
+              <div class="img-khung">
+                <img src="../../img/khung_flash.png" class="mt position-absolute top-0 w-100" alt="">
+                <a class="hv" href=""><i
+                    class="bi bi-qr-code-scan position-absolute top-0 m-4 text-primary zdex hv"></i></a>
+              </div>
+              <div class="row">
+                <div class="action text-center position-absolute top-50 start-0">
+                  <a href="#!product_details/{{sp.id}}" class="mx-2"><i class="bi bi-sliders ic ic1 hvbgpr"></i></a>
+                  <a href="#" class="mx-2"><i class="bi bi-eye-fill ic ic2 hvbgpr" data-bs-toggle="modal"
+                      ng-click="laymodel(sp.id)" data-bs-target="#modalProduct"></i></a>
+                  <a href="" class="mx-2"><i  class="bi bi-cart-fill ic ic3 hvbgpr" ng-click="addToCart(sp); showToasts()"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <a href="#!product_details/{{sp.id}}">
+                <div class="card-title fw-bold fs-5_5 hv truncate">{{sp.name}}</div>
+              </a>
+              <div class="card-text row">
+                <span class="card-text-left col-auto me-auto fs-6_5">{{sp.gender}}</span>
+                <span class="card-text-right col-auto fs-6_5 d-flex gap-1 ">Size: <div class="d-flex"
+                    ng-repeat="size in sp.size" class=""> {{size}} </div></span>
+              </div>
+
+              <div class="price-box d-flex align-items-center justify-content-between mb-1">
+                <span class="fs-5 fw-bold text-primary">{{sp.price|number: 0}},000đ<span
+                    class="fs-6_5 text-gray fw-light text-decoration-line-through ms-1">{{sp.listed_price|number:
+                    0}},000đ</span></span>
+                <div class="smart position-relative"><img class="" src="../../img/union.png" alt=""><span
+                    class="fw-bold text-light zdex position-absolute r5 top-0">-
+                    {{(sp.listed_price-sp.price)/sp.listed_price*100|number:0}}% </span></div>
+              </div>
+              <!-- <div class="elio-productcount">
+                <div class="countdown">
+                  <span class="tite row fw-bold fs-6_5 align-items-end wat">
+                    <img alt="countdown" width="28" height="28" class="lazyload loaded col-auto"
+                      src="../../img/hot-sale_1.png" data-was-processed="true">Đã bán 83</span>
+                  <div class="line mt-1"><span style="width:92%;"> </span></div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+        <div class="d-none owl-item"></div>
+        <div class="d-none owl-item"></div>
+        <div class="d-none owl-item"></div>
+        <div class="d-none owl-item"></div>
+        <div class="d-none owl-item"></div>
+
+      </div>
+    </div>
+  </div>
+  <div class="flash-footer text-center">
+    <a href="#!products" class="btn btn-primary rounded-5 py-2 hvbg mt-4 text-light">Xem thêm sản phẩm</a>
+  </div>
+</div>
+<script src="../../../js/owl.js"></script>

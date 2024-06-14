@@ -1,0 +1,56 @@
+// @import "../node_modules/bootstrap/scss/variables";
+// @import "../node_modules/bootstrap/scss/functions";
+// Font
+$font-family-sans-serif: "Quicksand", sans-serif;
+// Font-size
+$font-size-base: 1rem !default;
+
+$h1-font-size: $font-size-base * 2.5 !default;
+$h2-font-size: $font-size-base * 2 !default;
+$h3-font-size: $font-size-base * 1.75 !default;
+$h4-font-size: $font-size-base * 1.5 !default;
+$h5-font-size: $font-size-base * 1.25 !default;
+$h5_5-font-size: $font-size-base * 1.1 !default;
+$h6-font-size: $font-size-base !default;
+$h6_5-font-size: $font-size-base * 0.85 !default;
+$h7-font-size: $font-size-base * 0.75 !default;
+
+// scss-docs-start font-sizes
+$font-sizes: (
+  1: $h1-font-size,
+  2: $h2-font-size,
+  3: $h3-font-size,
+  4: $h4-font-size,
+  5: $h5-font-size,
+  5_5: $h5_5-font-size,
+  6: $h6-font-size,
+  6_5: $h6_5-font-size,
+  7: $h7-font-size,
+) !default;
+
+// Colors
+$primary: #194ed7;
+$secondary: #fd7d21;
+$thirt: #e4ecff;
+$lightgray: #d0d6e6;
+$light: #ffff;
+$dark: #474646;
+$blue: #273b96;
+$danger: #c23b22;
+
+// Spacers
+$spacer: 1rem !default;
+$spacers: (
+  0: 0,
+  1: $spacer * 0.25,
+  2: $spacer * 0.5,
+  3: $spacer,
+  4: $spacer * 1.5,
+  5: $spacer * 3,
+  6: $spacer * 6,
+  7: $spacer * 8,
+  8: $spacer * 12,
+) !default;
+
+@import "../node_modules/bootstrap/scss/bootstrap"; // nối với file đó
+@import "../node_modules/bootstrap-icons/font/bootstrap-icons.min.css";
